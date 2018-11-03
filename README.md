@@ -17,4 +17,29 @@ aws cloudformation create-stack --stack-name DevOpsDemo-dev-PrivateInstance --te
 5) Keep ssh Key of PrivateInstabce in /etc/ansible to run ansible-playbook
 6) configure inventroy file on PublicInstance in /etc/ansible ( you can find IP of PrivateInstance from Privateinstance stack)
 ```
+   #cd /etc/ansible
+ ```
+  A)
+  ```
+  #cat hosts
+        [privateinstance]
+        10.10.0.149 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=EC2-test.pem
+ ```
+ B) Check PrivateInstance machine reachablity from PublicInstance using ansible
+ ```
+     #ansible -m ping privateinstance
+ ```
+
+7) Now Create Job in Jenkin server to create Dockerfile and keep it in /mnt/artefact
+    copy Build steps from file Jenikins-Job-Shell for Execustion-Shell build step
+    ```
+    #cat jenkins/Jenikins-Job-Shell
+    ```
+
+
+8) run ansible-playbook from PublicInstance
+```
+   #cd /etc/ansible
+   #ansible-playbook PrivateInstance.yaml
+ ```
 
